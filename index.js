@@ -125,7 +125,7 @@ exports.middleware = function (clientApp, options) {
     return function (req, res, nxt) {
         var id = options.id;
         if (!exports.getApp(id) || !options.cache) {
-            clientApp();
+            clientApp(id);
         }
         if (!exports.getApp(id)) {
             nxt(new Error('Browserify build does not use exports plugin'));
