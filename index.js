@@ -9,6 +9,8 @@ var Promise = require('bluebird');
 var extend = require('node.extend');
 var fs = require('fs-extra-promise');
 
+var apps = {};
+
 var noop = function () {
 };
 
@@ -105,13 +107,8 @@ exports.createAppFn = function(clientCode) {
     return new Function('window', 'document', 'm', 'return ' + clientCode);
 };
 
-exports.createAppFromFile = function(id, filename) {
-    exports.setApp(id, fs.readFileAsync(filename, 'utf-8').then(exports.createAppFn));
-};
-
-var apps = {};
-
 exports.setApp = function(id, app) {
+    if (typeof app === 'string') app = fs.readFileAsync(filename, 'utf-8').then(exports.createAppFn);
     apps[id] = app;
 };
 
