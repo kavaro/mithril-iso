@@ -85,7 +85,7 @@ exports.render = function(url, app, options, cb) {
     } catch (err) {
         cb(err);
     }
-}
+};
 
 exports.browserify = function(b, options) {
     exports.setApp(options.id, new Promise(function(resolve, reject) {
@@ -99,7 +99,7 @@ exports.browserify = function(b, options) {
             nxt();
         }));
     }));
-}
+};
 
 exports.createAppFn = function(clientCode) {
     return new Function('window', 'document', 'm', 'return ' + clientCode);
@@ -113,11 +113,11 @@ var apps = {};
 
 exports.setApp = function(id, app) {
     apps[id] = app;
-}
+};
 
 exports.getApp = function(id) {
     return apps[id];
-}
+};
 
 exports.middleware = function (clientApp, options) {
     options = extend(true, {
