@@ -238,6 +238,17 @@ The middleware can, optionally, be configured with the following options object:
 * verify: boolean (default: false)
   When true, the browser will, after reviving the html, render the app to ensure the cache is 100% in sync
   with the html. This additional rendering step can be usefull to debug the revival algorithm.
+* initClient: function(miso) (default: function(miso) { return miso; }
+  After server side rendering, a client configuration object is serialized into the html.
+  This function allows to modify this configuration object before serialization.
+* initRoute: function(reqOptions, nxt) (default: function(reqOptions, nxt) { nxt(reqoptions); })
+  Before servicing a request, the initRoute callback is called. This function allows the server to modify a request
+  or implement a custom request handler for certain urls. The reqOptions object contains the following properties:
+    * url: full url, including protocol and hostname
+    * xhr: the xhr object
+    * isJsonp: boolean, true when the request is a jsonp request
+    * isCrossOrigin: boolean, true when it is a crossOrigin request
+    * req: the req object that requested server side rendering of the page (Note, this is not the xhr req)
 * initCrossOriginReq: function(request, xhr) (default: function(request, xhr) { return request; }
   To initiate a cross origin request, a request object is created for the node 'request' module.
   This function allows to modify the request object before it is passed to the 'request' module.

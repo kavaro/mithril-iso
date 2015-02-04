@@ -78,6 +78,10 @@ function initFn(v) {
     return v;
 }
 
+function initRoute(v, nxt) {
+    nxt(v);
+}
+
 exports.defaults = {
     srcPath: 'src',
     dstPath: 'public',
@@ -135,12 +139,14 @@ exports.middleware = function (options) {
         verify: false,
         frameBudget: 16,
         crossOrigin: true,
+        initRoute: initRoute,
         initCrossOrigin: initFn,
         initReq: initFn,
         initRes: initFn,
         initSocket: initFn,
         initDocument: initFn,
         initWindow: initFn,
+        initClient: initFn,
         build: defaults.build(),
         layout: defaults.layout
     }, options);
